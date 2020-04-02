@@ -29,8 +29,18 @@ main {
   flex-grow: 1;
 }
 
-a {
+a,
+button {
   cursor: pointer;
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
 }
 
 img {

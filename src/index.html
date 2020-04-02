@@ -22,161 +22,15 @@
 
       <p>Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст </p>
 
-      <div class="comments">
+      <div class="comments" id="comments">
         <h3>Комментарии</h3>
+
+        <!--Список комментариев-->
         <ul class="comments__list">
 
-          <li class="comments__list-item comment">
-            <div class="comment__wrapper">
-
-              <!--Логотип пользователя-->
-              <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
-              <div class="comment__description">
-                <div class="comment__data">
-
-                  <a class="comment__user-name" href="#">Имя пользователя</a>
-
-                  <!--отсчет даты-->
-                  <span class="comment__date">Час назад</span>
-
-                  <!--установка рейтенга-->
-                  <div class="comment__rating rating">
-                    <button class="rating__up" type="button">+</button>
-                    <input type="text" name="rating-value" value="0">
-                    <button class="rating__down" type="button">-</button>
-                  </div>
-                  <a class="comment__answer" href="#">Ответить</a>
-                </div>
-
-                <!--Текст комментария-->
-                <p>Текст комментария</p>
-              </div>
-            </div>
-
-            <ul class="comments__list comments__list-inner comments__list-inner--one">
-              <li class="comments__list-item comment">
-                <div class="comment__wrapper">
-
-                  <!--Логотип пользователя-->
-                  <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
-                  <div class="comment__description">
-                    <div class="comment__data">
-
-                      <a class="comment__user-name" href="#">Имя пользователя</a>
-
-                      <!--отсчет даты-->
-                      <span class="comment__date"></span>
-
-                      <!--установка рейтенга-->
-                      <div class="comment__rating rating">
-                        <button class="rating__up" type="button">+</button>
-                        <input type="text" name="rating-value" value="0">
-                        <button class="rating__down" type="button">-</button>
-                      </div>
-                      <a class="comment__answer" href="#">Ответить</a>
-                    </div>
-
-                    <!--Текст комментария-->
-                    <p>Текст комментария</p>
-                  </div>
-                </div>
-
-                <ul class="comments__list comments__list-inner comments__list-inner--two">
-                  <li class="comments__list-item comment">
-                    <div class="comment__wrapper">
-
-                      <!--Логотип пользователя-->
-                      <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
-                      <div class="comment__description">
-                        <div class="comment__data">
-
-                          <a class="comment__user-name" href="#">Имя пользователя</a>
-
-                          <!--отсчет даты-->
-                          <span class="comment__date"></span>
-
-                          <!--установка рейтенга-->
-                          <div class="comment__rating rating">
-                            <button class="rating__up" type="button">+</button>
-                            <input type="text" name="rating-value" value="0">
-                            <button class="rating__down" type="button">-</button>
-                          </div>
-
-                          <a class="comment__answer" href="#">Ответить</a>
-                        </div>
-
-                        <!--Текст комментария-->
-                        <p>Текст комментария</p>
-
-                      </div>
-                    </div>
-                    <ul class="comments__list comments__list-inner comments__list-inner--three">
-                      <li class="comments__list-item comment">
-                        <div class="comment__wrapper">
-
-                          <!--Логотип пользователя-->
-                          <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
-                          <div class="comment__description">
-                            <div class="comment__data">
-
-                              <a class="comment__user-name" href="#">Имя пользователя</a>
-
-                              <!--отсчет даты-->
-                              <span class="comment__date"></span>
-
-                              <!--установка рейтенга-->
-                              <div class="comment__rating rating">
-                                <button class="rating__up" type="button">+</button>
-                                <input type="text" name="rating-value" value="0">
-                                <button class="rating__down" type="button">-</button>
-                              </div>
-
-                              <a class="comment__answer" href="#">Ответить</a>
-                            </div>
-
-                            <!--Текст комментария-->
-                            <p>Текст комментария</p>
-
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li class="comments__list-item comment">
-            <div class="comment__wrapper">
-
-              <!--Логотип пользователя-->
-              <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
-              <div class="comment__description">
-                <div class="comment__data">
-
-                  <a class="comment__user-name" href="#">Имя пользователя</a>
-
-                  <!--отсчет даты-->
-                  <span class="comment__date"></span>
-
-                  <!--установка рейтенга-->
-                  <div class="comment__rating rating">
-                    <button class="rating__up" type="button">+</button>
-                    <input type="text" name="rating-value" value="0">
-                    <button class="rating__down" type="button">-</button>
-                  </div>
-                  <a class="comment__answer" href="#">Ответить</a>
-                </div>
-
-                <!--Текст комментария-->
-                <p>Текст комментария</p>
-              </div>
-            </div>
-
-            <ul class="comment__inner comment__inner--one">
-            </ul>
         </ul>
-        <form class="comments__form form">
+
+        <form class="comments__form form" method="post" enctype="multipart/form-data" autocomplete="off">
           <fieldset>
             <legend>Добавить комментарий</legend>
             <div class="form__row">
@@ -200,6 +54,47 @@
         </form>
       </div>
     </section>
+
+    <!--Шаблон нового комментария-->
+    <template id="new-comment">
+      <li class="comments__list-item comment">
+        <div class="comment__wrapper">
+
+          <!--Логотип пользователя-->
+          <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
+          <div class="comment__description">
+            <div class="comment__data">
+
+              <a class="comment__user-name" href="#">Имя пользователя</a>
+
+              <!--отсчет даты-->
+              <span class="comment__date">Час назад</span>
+
+              <!--установка рейтенга-->
+              <div class="comment__rating rating">
+                <button class="rating__up" type="button">+</button>
+                <input type="text" name="rating-value" value="0">
+                <button class="rating__down" type="button">-</button>
+              </div>
+
+              <!--кнопка создания нового комментария-->
+              <a class="comment__answer" href="#">Ответить</a>
+            </div>
+
+            <!--Текст комментария-->
+            <p>Текст комментария</p>
+          </div>
+        </div>
+      </li>
+    </template>
+
+    <!--Шаблон нового списка комментариев-->
+    <template id="new-comment-list">
+      <ul class="comments__list comments__list-inner comments__list-inner--one">
+      </ul>
+    </template>
+
+  <script src="js/main.js"></script>
   </body>
 </html>
 

@@ -18,8 +18,12 @@
 }
 
 .form__row--message textarea {
+  padding-left: 4px;
+  padding-right: 4px;
   width: 267px;
   height: 53px;
+
+  font-size: 8px;
 
   border: 0.5px solid #666666;
 
@@ -27,8 +31,12 @@
 }
 
 .form input {
+  padding-left: 4px;
+  padding-right: 4px;
   width: 107px;
   height: 12px;
+
+  font-size: 8px;
 
   border: 0.5px solid #666666;
 }
