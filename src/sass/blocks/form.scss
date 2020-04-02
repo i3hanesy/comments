@@ -1,0 +1,47 @@
+.form fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  padding-bottom: 7px;
+}
+
+.form__row {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 4px;
+  width: 192px;
+}
+
+.form__row--message {
+  width: 352px;
+}
+
+.form__row--message textarea {
+  width: 267px;
+  height: 53px;
+
+  border: 0.5px solid #666666;
+
+  resize: none;
+}
+
+.form input {
+  width: 107px;
+  height: 12px;
+
+  border: 0.5px solid #666666;
+}
+
+.form button {
+  margin-left: 85px;
+  width: 84px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+
+  color: #ffffff;
+  font-size: 6px;
+
+  background-color: #085394;
+  border: 0.5px solid #666666;
+}

@@ -55,6 +55,7 @@
     "source/views/**/*.{sass,scss}"
   ],
   "dependencies": {
-    "del": "^5.1.0"
+    "del": "^5.1.0",
+    "merge": "^1.2.1"
   }
 }

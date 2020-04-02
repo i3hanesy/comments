@@ -1,0 +1,29 @@
+.rating {
+  display: flex;
+  width: 52px;
+  height: 12px;
+}
+
+.rating input {
+  width: 17px;
+  height: 12px;
+
+  font-size: 7px;
+  text-align: center;
+  background-color: #dddddd;
+
+  border: 0.5px solid #666666;
+  border-right: none;
+  border-left: none;
+}
+
+.rating button {
+  width: 19px;
+  height: 12px;
+
+  font-size: 7px;
+  text-align: center;
+
+  background-color: #dddddd;
+  border: 0.5px solid #666666;
+}

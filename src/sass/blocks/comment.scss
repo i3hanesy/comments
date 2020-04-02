@@ -1,0 +1,45 @@
+.comment__wrapper {
+  display: flex;
+  margin-bottom: 8px;
+
+  width: 100%;
+}
+
+.comment__wrapper .comment__logo {
+  margin-right: 8px;
+  width: 43px;
+  height: 43px;
+}
+
+.comment__data {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+
+  width: 100%;
+}
+
+.comment__user-name {
+  margin-right: 8px;
+}
+
+.comment__date {
+  margin-right: 10px;
+
+  color: #6f6f6f;
+  font-weight: normal;
+}
+
+.comment__answer {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.comment__description {
+  width: 100%;
+}
+
+.comment__description p {
+  margin: 0;
+  padding: 0;
+}
