@@ -29,7 +29,7 @@
         <ul class="comments__list">
 
         </ul>
-
+<!--
         <form class="comments__form form" method="post" enctype="multipart/form-data" autocomplete="off">
           <fieldset>
             <legend>Добавить комментарий</legend>
@@ -51,9 +51,35 @@
             <button type="submit">Добавить комментарий</button>
 
           </fieldset>
-        </form>
+        </form> -->
       </div>
     </section>
+
+    <!--Шаблон формы комментария-->
+    <template id="new-form">
+      <form class="comments__form form" method="post" enctype="multipart/form-data" autocomplete="off">
+        <fieldset>
+          <legend>Добавить комментарий</legend>
+          <div class="form__row">
+            <label for="user-name">Имя</label>
+            <input type="text" name="user-name" id="user-name">
+          </div>
+
+          <div class="form__row">
+            <label for="user-email">E-mail</label>
+            <input type="email" name="user-email" id="user-email">
+          </div>
+
+          <div class="form__row form__row--message">
+            <label for="user-text">Текст комментария</label>
+            <textarea name="user-text"></textarea>
+          </div>
+
+          <button type="submit">Добавить комментарий</button>
+
+        </fieldset>
+      </form>
+    </template>
 
     <!--Шаблон нового комментария-->
     <template id="new-comment">
@@ -78,7 +104,7 @@
               </div>
 
               <!--кнопка создания нового комментария-->
-              <a class="comment__answer" href="#">Ответить</a>
+              <a class="comment__answer comment__answer--one" href="#">Ответить</a>
             </div>
 
             <!--Текст комментария-->
