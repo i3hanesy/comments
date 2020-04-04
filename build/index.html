@@ -29,31 +29,7 @@
         <ul class="comments__list">
 
         </ul>
-<!--
-        <form class="comments__form form" method="post" enctype="multipart/form-data" autocomplete="off">
-          <fieldset>
-            <legend>Добавить комментарий</legend>
-            <div class="form__row">
-              <label for="user-name">Имя</label>
-              <input type="text" name="user-name" id="user-name">
-            </div>
-
-            <div class="form__row">
-              <label for="user-email">E-mail</label>
-              <input type="email" name="user-email" id="user-email">
-            </div>
-
-            <div class="form__row form__row--message">
-              <label for="user-text">Текст комментария</label>
-              <textarea name="user-text"></textarea>
-            </div>
-
-            <button type="submit">Добавить комментарий</button>
-
-          </fieldset>
-        </form> -->
-      </div>
-    </section>
+    </div></section>
 
     <!--Шаблон формы комментария-->
     <template id="new-form">
@@ -83,8 +59,9 @@
 
     <!--Шаблон нового комментария-->
     <template id="new-comment">
-      <li class="comments__list-item comment">
-        <div class="comment__wrapper">
+      <li class="comments__list-item comment inner-1">
+        <button class="comment__toggle visually-hidden" type="button">Развернуть комментарий</button>
+        <div class="comment__wrapper comment__wrapper--active">
 
           <!--Логотип пользователя-->
           <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
@@ -116,7 +93,7 @@
 
     <!--Шаблон нового списка комментариев-->
     <template id="new-comment-list">
-      <ul class="comments__list comments__list-inner comments__list-inner--one">
+      <ul class="comments__list comments__list-inner">
       </ul>
     </template>
 

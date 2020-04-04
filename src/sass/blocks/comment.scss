@@ -1,8 +1,41 @@
-.comment__wrapper {
+.comment {
   display: flex;
-  margin-bottom: 8px;
+  flex-direction: column;
+}
 
+.comment__toggle {
+  position: relative;
+
+  font-size: 8px;
+  text-align: left;
+  color: #085394;
+
+  border: none;
+  background-color: transparent;
+  outline: none;
+
+  &:hover,
+  &:focus {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+.comment .form {
+  margin-left: 20px;
+}
+
+.comment__wrapper {
+  display: none;
+  margin-bottom: 8px;
   width: 100%;
+}
+
+.comment__wrapper--active {
+  display: flex;
 }
 
 .comment__wrapper .comment__logo {

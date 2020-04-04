@@ -7,4 +7,9 @@
 
 .comments__list-inner {
   padding-left: 50px;
+  order: 1;
+}
+
+.inner-3 .comment__answer {
+  display: none;
 }
