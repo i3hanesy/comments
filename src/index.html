@@ -60,7 +60,7 @@
     <!--Шаблон нового комментария-->
     <template id="new-comment">
       <li class="comments__list-item comment inner-1">
-        <button class="comment__toggle visually-hidden" type="button">Развернуть комментарий</button>
+        <button class="comment__toggle visually-hidden" type="button">Свернуть комментарий</button>
         <div class="comment__wrapper comment__wrapper--active">
 
           <!--Логотип пользователя-->
@@ -75,9 +75,9 @@
 
               <!--установка рейтенга-->
               <div class="comment__rating rating">
-                <button class="rating__up" type="button">+</button>
-                <input type="text" name="rating-value" value="0">
-                <button class="rating__down" type="button">-</button>
+                <button class="raiting__button raiting__button--up" type="button">+</button>
+                <input type="text" name="rating-value" value="0" disabled>
+                <button class="raiting__button raiting__button--down" type="button">-</button>
               </div>
 
               <!--кнопка создания нового комментария-->

@@ -2,7 +2,13 @@
 
 (function () {
 
-  var count = 1;
+  var COUNTS = {
+    COUNT: 1,
+    COMMENTSCOUNT: 1,
+    MAXCOMMENTS: 3,
+    MINRATING: -10
+  };
+
   var comments = document.querySelector('#comments');
   var firstCommentsList = comments.querySelector('.comments__list');
 
@@ -39,30 +45,60 @@
     });
   };
 
-  var getToggleButton = function (parentList) {
-    if (parentList.classList.contains('comments__list-inner')) {
-      var toggleButton = parentList.querySelector('.comment__toggle');
-      var commentWrapper = parentList.querySelector('.comment__toggle ~ .comment__wrapper');
-      toggleButton.classList.remove('visually-hidden');
+  var getСollapseComment = function (button, wrapper) {
+    wrapper.classList.toggle('comment__wrapper--active');
+    button.classList.remove('visually-hidden');
 
-      // отлавливает событие кнопки свернуть\развернуть комментарий
-      toggleButton.addEventListener('click', function (evt) {
-        evt.preventDefault();
-        getСollapseComment();
-      });
+    if (button.textContent === 'Свернуть комментарий') {
+      button.textContent = 'Развернуть комментарий';
+      button.setAttribute('style', 'border: 1px solid black;');
+    } else {
+      button.textContent = 'Свернуть комментарий';
+      button.setAttribute('style', 'border: none;');
+    }
+  };
 
+  var onCommentTogleDown = function (evt) {
+    var clickPoint = evt.target;
+
+    if (clickPoint.classList.contains('comment__toggle')) {
+      // return;
+      var commentWrapper = clickPoint.nextElementSibling;
+      evt.preventDefault();
+      getСollapseComment(clickPoint, commentWrapper);
     }
 
-    // раскрывает и закрывает комментарий
-    var getСollapseComment = function () {
-      commentWrapper.classList.toggle('comment__wrapper--active');
+    if (clickPoint.classList.contains('raiting__button')) {
+      var commentRatingWrapper = clickPoint.closest('.comment__wrapper');
+      var toggleButton = commentRatingWrapper.previousElementSibling;
 
-      if (toggleButton.textContent === 'Свернуть комментарий') {
-        toggleButton.textContent = 'Развернуть комментарий';
-      } else {
-        toggleButton.textContent = 'Свернуть комментарий';
+      var commentRating = clickPoint.parentElement;
+      var rating = commentRating.querySelector('input[type = "text"]');
+
+      var buttonUp = clickPoint.classList.contains('raiting__button--up');
+
+      var ratingValue = buttonUp ? (rating.value++) + 1 : (rating.value--) - 1;
+
+
+      rating.value = ratingValue;
+      if (ratingValue <= COUNTS.MINRATING) {
+        getСollapseComment(toggleButton, commentRatingWrapper);
       }
-    };
+    }
+  };
+
+  comments.addEventListener('click', onCommentTogleDown);
+
+  // активирует кнопку свернуть\развернуть комментарий вложенных элементов
+  var activeToggleInner = function (parentList) {
+    var commentItems = parentList.querySelectorAll('.comments__list-item');
+    for (var i = 0; i < commentItems.length; i++) {
+      var toggleButton = commentItems[i].querySelector('.comment__toggle');
+
+      if (parentList.classList.contains('comments__list-inner')) {
+        toggleButton.classList.remove('visually-hidden');
+      }
+    }
   };
 
   // создает новую форму
@@ -81,8 +117,7 @@
 
       getComment(nameField.value, textField.value);
       insertElements(commentLocation);
-      getToggleButton(commentLocation);
-
+      activeToggleInner(commentLocation);
       getClearForm(nameField, mailField, textField);
       clearDomElements(comments, 'form');
       getNewForm(comments, firstCommentsList);
@@ -104,12 +139,12 @@
     // массив классов элемента списка
     var parrentClassArray = parrentElementClass.split(' ');
 
-    if (count >= 3) {
-      count = 1;
+    if (COUNTS.COMMENTSCOUNT >= COUNTS.MAXCOMMENTS) {
+      COUNTS.COMMENTSCOUNT = 1;
     }
-    if (parrentList.classList.contains('inner-' + count)) {
-      count++;
-      parrentClassArray.push('inner-' + count);
+    if (parrentList.classList.contains('inner-' + COUNTS.COMMENTSCOUNT)) {
+      COUNTS.COMMENTSCOUNT++;
+      parrentClassArray.push('inner-' + COUNTS.COMMENTSCOUNT);
     }
 
     innerList.classList.add(parrentClassArray[parrentClassArray.length - 1]);
@@ -138,7 +173,6 @@
       getCountInner(element);
       getNewForm(element, element.querySelector('.comments__list-inner'));
 
-      // getСollapseComment();
     });
   };
 
