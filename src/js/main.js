@@ -15,9 +15,6 @@
     var firstCommentsList = comments.querySelector('.comments__list');
   }
 
-  var commentTemplate = document.querySelector('#new-comment').content.querySelector('li');
-  var commentListTemplate = document.querySelector('#new-comment-list').content.querySelector('ul');
-  var formTemplate = document.querySelector('#new-form').content.querySelector('form');
 
   var fragment = document.createDocumentFragment();
 
@@ -28,6 +25,7 @@
 
   // создает внутренний список
   var getAnswerList = function (location) {
+    var commentListTemplate = document.querySelector('#new-comment-list').content.querySelector('ul');
     var element = commentListTemplate.cloneNode(true);
     fragment.appendChild(element);
     insertElements(location);
@@ -52,11 +50,11 @@
     wrapper.classList.toggle('comment__wrapper--active');
     button.classList.remove('visually-hidden');
 
-    if (button.textContent === 'Свернуть комментарий') {
-      button.textContent = 'Развернуть комментарий';
+    if (button.textContent === 'Закрыть комментарий') {
+      button.textContent = 'Открыть комментарий';
       button.setAttribute('style', 'border: 1px solid black;');
     } else {
-      button.textContent = 'Свернуть комментарий';
+      button.textContent = 'Закрыть комментарий';
       button.setAttribute('style', 'border: none;');
     }
   };
@@ -106,31 +104,43 @@
     }
   };
 
-  // создает новую форму
-  var getNewForm = function (location, commentLocation) {
-    fragment.appendChild(formTemplate.cloneNode(true));
-    insertElements(location);
+  // создает форму
+  var getNewForm = function (insertList) {
 
-    var form = comments.querySelector('.form');
-    var nameField = form.querySelector('input[type="text"]');
-    var mailField = form.querySelector('input[type="email"]');
-    var textField = form.querySelector('textarea');
+    if (comments) {
+      var form = comments.querySelector('.form');
+    }
 
-    // обработчик комментариев
+    if (form) {
+      var nameField = form.querySelector('input[type="text"]');
+      var mailField = form.querySelector('input[type="email"]');
+      var textField = form.querySelector('textarea');
+    }
+
     var onSubmitFormDown = function (evt) {
       evt.preventDefault();
 
       getComment(nameField.value, textField.value);
-      insertElements(commentLocation);
-      activeToggleInner(commentLocation);
+      insertElements(insertList);
+      activeToggleInner(insertList);
       getClearForm(nameField, mailField, textField);
-      clearDomElements(comments, 'form');
-      getNewForm(comments, firstCommentsList);
+      // clearDomElements(comments, 'form');
+      insertForm(comments, firstCommentsList);
     };
 
     if (form) {
       form.addEventListener('submit', onSubmitFormDown);
     }
+  };
+
+  // вставляет форму под комментарий
+  var insertForm = function (location, commentLocation) {
+    var formTemplate = comments.querySelector('.comments__form');
+    clearDomElements(comments, 'form');
+    fragment.appendChild(formTemplate.cloneNode(true));
+    insertElements(location);
+
+    getNewForm(commentLocation);
   };
 
   // создает классы относительно уровня вложенности
@@ -157,7 +167,7 @@
     innerList.classList.add(parrentClassArray[parrentClassArray.length - 1]);
   };
 
-
+  // создает точку отчета от 1970г в минутах
   var getDatePoint = function () {
     var date = new Date().getTime() / 60000;
     return date;
@@ -166,50 +176,44 @@
 
   // создает комментарий по шаблону
   var getComment = function (userName, userText) {
+    var commentTemplate = document.querySelector('#new-comment').content.querySelector('li');
     var element = commentTemplate.cloneNode(true);
+
+    var markdownText = window.markdownit();
+
+    var commentText = element.querySelector('.comment__description p');
+
     element.querySelector('.comment__user-name').textContent = userName;
-    element.querySelector('.comment__description p').textContent = userText;
+    commentText.textContent = '';
+    commentText.insertAdjacentHTML('afterbegin', markdownText.render(userText));
     fragment.appendChild(element);
 
 
     var commentDate = element.querySelector('.comment__date');
 
+    // фиксирует время создания комментария
     var pointTime = getDatePoint();
     setInterval(function () {
+
+      // разница в минутах от точки создания комментария
       var newTime = Math.floor(getDatePoint() - pointTime);
 
       if (newTime < 60) {
         commentDate.textContent = '' + newTime + ' минут назад';
-      } else if (newTime >= 60 || newTime < 120) {
+      } else if (newTime >= 60 && newTime < 120) {
         commentDate.textContent = 'Час назад';
-      } else if (newTime >= 120 || newTime < 1440) {
+      } else if (newTime >= 120 && newTime < 1440) {
         commentDate.textContent = '' + Math.floor(newTime / 60) + ' часов назад';
       } else if (newTime >= 1440) {
         commentDate.textContent = '' + Math.floor(newTime / 1440) + ' дней назад';
       }
 
-      // switch (newTime) {
-      //   case newTime < 60: commentDate.textContent = '' + newTime + 'минут назад';
-      //     break;
-
-      //   case newTime >= 60 || newTime < 120: commentDate.textContent = 'Час назад';
-      //     break;
-
-      //   case newTime >= 120 || newTime < 1440: commentDate.textContent = '' + Math.floor(newTime / 60) + 'часов назад';
-      //     break;
-
-      //   case newTime >= 1440: commentDate.textContent = '' + Math.floor(newTime / 1440) + 'дней назад';
-      //     break;
-
-      // }
-      // commentDate.textContent = '' + newTime + '';
     }, 60000);
 
-    var commentAnswerButton = element.querySelector('.comment__answer');
     // кнопка ответить
+    var commentAnswerButton = element.querySelector('.comment__answer');
     commentAnswerButton.addEventListener('click', function (evt) {
       evt.preventDefault();
-      clearDomElements(comments, 'form');
 
       // проверка на наличие списка
       if (!element.querySelector('.comments__list-inner')) {
@@ -217,14 +221,14 @@
       }
 
       getCountInner(element);
-      getNewForm(element, element.querySelector('.comments__list-inner'));
+      insertForm(element, element.querySelector('.comments__list-inner'));
 
     });
   };
 
-  // создает первую форму при загрузке страницы
+  // определяет первую форму при загрузке страницы
   document.addEventListener('DOMContentLoaded', function () {
-    getNewForm(comments, firstCommentsList);
+    getNewForm(firstCommentsList);
   }, false);
 
 })();

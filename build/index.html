@@ -8,12 +8,11 @@
     <link href="css/style.min.css" rel="stylesheet">
   </head>
   <body>
-<!--     <div class="visually-hidden">
-      <include src="build/img/sprite_auto.svg"></include>
-    </div> -->
+
     <h1 class="visually-hidden">Блок новостей</h1>
-    <section class="container">
+    <section class="container news">
       <h2><a href="#">Заголовок</a></h2>
+      <span class="news__date">01/01/2014</span>
       <p>Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст </p>
 
       <p>Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст Какой-то текст </p>
@@ -29,42 +28,42 @@
         <ul class="comments__list">
 
         </ul>
-    </div></section>
 
-    <!--Шаблон формы комментария-->
-    <template id="new-form">
       <form class="comments__form form" method="post" enctype="multipart/form-data" autocomplete="off">
         <fieldset>
           <legend>Добавить комментарий</legend>
           <div class="form__row">
             <label for="user-name">Имя</label>
-            <input type="text" name="user-name" id="user-name">
+            <input type="text" name="user-name" id="user-name" required="">
           </div>
 
           <div class="form__row">
             <label for="user-email">E-mail</label>
-            <input type="email" name="user-email" id="user-email">
+            <input type="email" name="user-email" id="user-email" required="">
           </div>
 
           <div class="form__row form__row--message">
             <label for="user-text">Текст комментария</label>
-            <textarea name="user-text"></textarea>
+            <textarea name="user-text" required=""></textarea>
           </div>
 
           <button type="submit">Добавить комментарий</button>
 
         </fieldset>
       </form>
-    </template>
+    </div></section>
 
     <!--Шаблон нового комментария-->
     <template id="new-comment">
       <li class="comments__list-item comment inner-1">
-        <button class="comment__toggle visually-hidden" type="button">Свернуть комментарий</button>
+        <button class="comment__toggle visually-hidden" type="button">Закрыть комментарий</button>
         <div class="comment__wrapper comment__wrapper--active">
 
           <!--Логотип пользователя-->
-          <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
+          <picture>
+            <source type="image/webp" srcset="img/avatar.webp">
+            <img class="comment__logo" src="img/avatar.jpg" width="43" height="43" alt="аватар пользователя">
+          </picture>
           <div class="comment__description">
             <div class="comment__data">
 
@@ -97,8 +96,8 @@
       </ul>
     </template>
 
-  <!-- <script src="js/moment.js"></script> -->
-  <script src="js/main.js"></script>
+  <!-- <script src="js/markdown-it.js"></script> -->
+  <script src="js/index.js"></script>
   </body>
 </html>
 
