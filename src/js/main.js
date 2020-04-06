@@ -10,7 +10,10 @@
   };
 
   var comments = document.querySelector('#comments');
-  var firstCommentsList = comments.querySelector('.comments__list');
+
+  if (comments) {
+    var firstCommentsList = comments.querySelector('.comments__list');
+  }
 
   var commentTemplate = document.querySelector('#new-comment').content.querySelector('li');
   var commentListTemplate = document.querySelector('#new-comment-list').content.querySelector('ul');
@@ -87,7 +90,9 @@
     }
   };
 
-  comments.addEventListener('click', onCommentTogleDown);
+  if (comments) {
+    comments.addEventListener('click', onCommentTogleDown);
+  }
 
   // активирует кнопку свернуть\развернуть комментарий вложенных элементов
   var activeToggleInner = function (parentList) {
@@ -123,7 +128,9 @@
       getNewForm(comments, firstCommentsList);
     };
 
-    form.addEventListener('submit', onSubmitFormDown);
+    if (form) {
+      form.addEventListener('submit', onSubmitFormDown);
+    }
   };
 
   // создает классы относительно уровня вложенности
@@ -151,6 +158,12 @@
   };
 
 
+  var getDatePoint = function () {
+    var date = new Date().getTime() / 60000;
+    return date;
+  };
+
+
   // создает комментарий по шаблону
   var getComment = function (userName, userText) {
     var element = commentTemplate.cloneNode(true);
@@ -158,8 +171,41 @@
     element.querySelector('.comment__description p').textContent = userText;
     fragment.appendChild(element);
 
-    var commentAnswerButton = element.querySelector('.comment__answer');
 
+    var commentDate = element.querySelector('.comment__date');
+
+    var pointTime = getDatePoint();
+    setInterval(function () {
+      var newTime = Math.floor(getDatePoint() - pointTime);
+
+      if (newTime < 60) {
+        commentDate.textContent = '' + newTime + ' минут назад';
+      } else if (newTime >= 60 || newTime < 120) {
+        commentDate.textContent = 'Час назад';
+      } else if (newTime >= 120 || newTime < 1440) {
+        commentDate.textContent = '' + Math.floor(newTime / 60) + ' часов назад';
+      } else if (newTime >= 1440) {
+        commentDate.textContent = '' + Math.floor(newTime / 1440) + ' дней назад';
+      }
+
+      // switch (newTime) {
+      //   case newTime < 60: commentDate.textContent = '' + newTime + 'минут назад';
+      //     break;
+
+      //   case newTime >= 60 || newTime < 120: commentDate.textContent = 'Час назад';
+      //     break;
+
+      //   case newTime >= 120 || newTime < 1440: commentDate.textContent = '' + Math.floor(newTime / 60) + 'часов назад';
+      //     break;
+
+      //   case newTime >= 1440: commentDate.textContent = '' + Math.floor(newTime / 1440) + 'дней назад';
+      //     break;
+
+      // }
+      // commentDate.textContent = '' + newTime + '';
+    }, 60000);
+
+    var commentAnswerButton = element.querySelector('.comment__answer');
     // кнопка ответить
     commentAnswerButton.addEventListener('click', function (evt) {
       evt.preventDefault();
