@@ -20,14 +20,22 @@
 
   // вставляет элемент в определенную локацию
   var insertElements = function (locationOfInsertion) {
-    locationOfInsertion.appendChild(fragment);
+    if (locationOfInsertion) {
+      locationOfInsertion.appendChild(fragment);
+    }
   };
 
   // создает внутренний список
   var getAnswerList = function (location) {
     var commentListTemplate = document.querySelector('#new-comment-list').content.querySelector('ul');
-    var element = commentListTemplate.cloneNode(true);
-    fragment.appendChild(element);
+    if (commentListTemplate) {
+      var element = commentListTemplate.cloneNode(true);
+    }
+
+    if (element) {
+      fragment.appendChild(element);
+    }
+
     insertElements(location);
   };
 
@@ -94,12 +102,14 @@
 
   // активирует кнопку свернуть\развернуть комментарий вложенных элементов
   var activeToggleInner = function (parentList) {
-    var commentItems = parentList.querySelectorAll('.comments__list-item');
-    for (var i = 0; i < commentItems.length; i++) {
-      var toggleButton = commentItems[i].querySelector('.comment__toggle');
+    if (parentList) {
+      var commentItems = parentList.querySelectorAll('.comments__list-item');
+      for (var i = 0; i < commentItems.length; i++) {
+        var toggleButton = commentItems[i].querySelector('.comment__toggle');
 
-      if (parentList.classList.contains('comments__list-inner')) {
-        toggleButton.classList.remove('visually-hidden');
+        if (parentList.classList.contains('comments__list-inner')) {
+          toggleButton.classList.remove('visually-hidden');
+        }
       }
     }
   };
@@ -150,11 +160,19 @@
     var innerList = elementToUse.querySelector('.comments__list-inner');
 
     // родитель - элемент списка
-    var parrentElement = innerList.parentElement;
-    var parrentElementClass = parrentElement.className;
+    if (innerList) {
+      var parrentElement = innerList.parentElement;
+    }
+
+    if (parrentElement) {
+      var parrentElementClass = parrentElement.className;
+    }
 
     // массив классов элемента списка
-    var parrentClassArray = parrentElementClass.split(' ');
+
+    if (parrentElementClass) {
+      var parrentClassArray = parrentElementClass.split(' ');
+    }
 
     if (COUNTS.COMMENTSCOUNT >= COUNTS.MAXCOMMENTS) {
       COUNTS.COMMENTSCOUNT = 1;
@@ -164,7 +182,10 @@
       parrentClassArray.push('inner-' + COUNTS.COMMENTSCOUNT);
     }
 
-    innerList.classList.add(parrentClassArray[parrentClassArray.length - 1]);
+    if (parrentClassArray) {
+      innerList.classList.add(parrentClassArray[parrentClassArray.length - 1]);
+    }
+
   };
 
   // создает точку отчета от 1970г в минутах
@@ -177,53 +198,58 @@
   // создает комментарий по шаблону
   var getComment = function (userName, userText) {
     var commentTemplate = document.querySelector('#new-comment').content.querySelector('li');
-    var element = commentTemplate.cloneNode(true);
+
+    if (commentTemplate) {
+      var element = commentTemplate.cloneNode(true);
+    }
 
     var markdownText = window.markdownit();
 
-    var commentText = element.querySelector('.comment__description p');
+    if (element) {
+      var commentText = element.querySelector('.comment__description p');
 
-    element.querySelector('.comment__user-name').textContent = userName;
-    commentText.textContent = '';
-    commentText.insertAdjacentHTML('afterbegin', markdownText.render(userText));
-    fragment.appendChild(element);
+      element.querySelector('.comment__user-name').textContent = userName;
+      commentText.textContent = '';
+      commentText.insertAdjacentHTML('afterbegin', markdownText.render(userText));
+      fragment.appendChild(element);
 
 
-    var commentDate = element.querySelector('.comment__date');
+      var commentDate = element.querySelector('.comment__date');
 
-    // фиксирует время создания комментария
-    var pointTime = getDatePoint();
-    setInterval(function () {
+      // фиксирует время создания комментария
+      var pointTime = getDatePoint();
+      setInterval(function () {
 
-      // разница в минутах от точки создания комментария
-      var newTime = Math.floor(getDatePoint() - pointTime);
+        // разница в минутах от точки создания комментария
+        var newTime = Math.floor(getDatePoint() - pointTime);
 
-      if (newTime < 60) {
-        commentDate.textContent = '' + newTime + ' минут назад';
-      } else if (newTime >= 60 && newTime < 120) {
-        commentDate.textContent = 'Час назад';
-      } else if (newTime >= 120 && newTime < 1440) {
-        commentDate.textContent = '' + Math.floor(newTime / 60) + ' часов назад';
-      } else if (newTime >= 1440) {
-        commentDate.textContent = '' + Math.floor(newTime / 1440) + ' дней назад';
-      }
+        if (newTime < 60) {
+          commentDate.textContent = '' + newTime + ' минут назад';
+        } else if (newTime >= 60 && newTime < 120) {
+          commentDate.textContent = 'Час назад';
+        } else if (newTime >= 120 && newTime < 1440) {
+          commentDate.textContent = '' + Math.floor(newTime / 60) + ' часов назад';
+        } else if (newTime >= 1440) {
+          commentDate.textContent = '' + Math.floor(newTime / 1440) + ' дней назад';
+        }
 
-    }, 60000);
+      }, 60000);
 
-    // кнопка ответить
-    var commentAnswerButton = element.querySelector('.comment__answer');
-    commentAnswerButton.addEventListener('click', function (evt) {
-      evt.preventDefault();
+      // кнопка ответить
+      var commentAnswerButton = element.querySelector('.comment__answer');
+      commentAnswerButton.addEventListener('click', function (evt) {
+        evt.preventDefault();
 
-      // проверка на наличие списка
-      if (!element.querySelector('.comments__list-inner')) {
-        getAnswerList(element);
-      }
+        // проверка на наличие списка
+        if (!element.querySelector('.comments__list-inner')) {
+          getAnswerList(element);
+        }
 
-      getCountInner(element);
-      insertForm(element, element.querySelector('.comments__list-inner'));
+        getCountInner(element);
+        insertForm(element, element.querySelector('.comments__list-inner'));
 
-    });
+      });
+    }
   };
 
   // определяет первую форму при загрузке страницы
